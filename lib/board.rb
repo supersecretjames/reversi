@@ -1,5 +1,6 @@
-class Board
+require 'piece'
 
+class Board
   def self.make_start_grid
     grid = Array.new(8) {Array.new(8, nil)}
 
@@ -37,12 +38,17 @@ class Board
     (0...8).include?(i) && (0...8).include?(j)
   end
 
+  def valid_move?(position, color)
+    return true if valid_lines(position, color)
+    false
+  end
+
   def valid_moves?(color)
     (0...8).each do |i|
       (0...8).each do |j|
         position = [i,j]
 
-        return true if valid_lines(position, color)
+        return true if valid_move?(position, color)
       end
     end
     false
