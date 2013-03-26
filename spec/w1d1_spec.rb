@@ -96,7 +96,7 @@ describe Tower do
     end
   end
 
-  describe "valid_move?" do
+  describe "#valid_move?" do
     it "takes disc and returns false if disc is larger than tower's top disc" do
       tower = Tower.new(3)
       tower.take_disc
@@ -110,7 +110,7 @@ describe Tower do
     end
   end
 
-  describe "put_disc" do
+  describe "#put_disc" do
     it "pushes a disc into the top of the tower" do
       tower = Tower.new(3)
       tower.take_disc
@@ -133,13 +133,14 @@ describe Tower do
   end
 end
 
+
 describe Hanoi do
   describe "::start_game" do
     it "starts the game"
   end
 
   describe "initialize" do
-    subject(:game) { Hanoi.new(5) }
+    subject(:game) { Hanoi.new_game(5) }
     it "creates three towers" do
       game.towers.count.should == 3
     end
@@ -157,41 +158,105 @@ describe Hanoi do
     end
   end
 
-  describe "move" do
-    subject(:game) { Hanoi.new(5) }
+  describe "#move" do
+    subject(:game) { Hanoi.new_game(5) }
     let(:tower1) { double('tower') }
     let(:tower2) { double('tower') }
     let(:tower3) { double('tower') }
 
-    it "moves a disc from one tower to the next" do
-      tower1.should_recieve(:take_disc).and_return(1)
-      tower2.should_recieve(:valid_move?).and_return(true)
-      tower2.should_recieve(:put_disc).and_return(nil)
-
-      game.move(:tower1, :tower2)
+    before(:each) do
+      tower1.stub(:take_disc)
+      tower2.stub(:valid_move?)
+      tower2.stub(:put_disc)
     end
 
-    it "should not allow illegal moves" do
-      tower1.should_recieve(:take_disc).and_return(1)
-      tower2.should_recieve(:valid_move?).and_return(false)
-      tower1.should_recieve(:put_disc).with(1).and_return(nil)
+    it "moves a disc from one tower to the next" do
 
-      game.move(:tower1, :tower2)
+      tower1.should_receive(:take_disc).and_return(1)
+      tower2.should_receive(:valid_move?).and_return(true)
+      tower2.should_receive(:put_disc).and_return(nil)
+
+      game.move(tower1, tower2)
+    end
+
+    it "should ignore illegal moves" do
+
+      tower1.should_receive(:take_disc).and_return(1)
+      tower2.should_receive(:valid_move?).and_return(false)
+      tower1.should_receive(:put_disc).with(1).and_return(nil)
+
+      game.move(tower1, tower2)
     end
   end
 
+  describe "#turn" do
+    let(:tower1) { double('tower') }
+    let(:tower2) { double('tower') }
+    let(:tower3) { double('tower') }
+    let(:player) { double('player') }
+    subject(:game) { Hanoi.new([tower1, tower2, tower3], player) }
+
+    before(:each) do
+      player.stub(:get_move)
+      game.stub(:move)
+    end
+
+    it "gets move from player" do
+      player.should_receive(:get_move).and_return([tower1, tower2])
+
+      game.turn
+    end
+
+    it "plays move" do
+      player.stub(:get_move).and_return([tower1, tower2])
+      game.should_receive(:move).with(tower1, tower2)
+
+      game.turn
+    end
+  end
+
+  describe "#game_over?" do
+    let(:tower1) { double('tower') }
+    let(:tower2) { double('tower') }
+    let(:tower3) { double('tower') }
+    subject(:game) { Hanoi.new([tower1, tower2, tower3]) }
+
+
+    it "returns false if towers 1 and 2 aren't empty" do
+      tower1.stub(:discs).and_return([1,2,3])
+      tower2.stub(:discs).and_return([])
+      game.game_over?.should be_false
+    end
+
+    it "should break when towers 1 and 2 are empty" do
+      tower1.stub(:discs).and_return([])
+      tower2.stub(:discs).and_return([])
+      game.game_over?.should be_true
+    end
+  end
+
+  describe "#play" do
+    subject(:game) {Hanoi.new_game(5)}
+
+    it "should make moves if game isn't over" do
+      game.stub(:game_over?).and_return(false, true)
+      game.stub(:turn)
+      game.stub(:display)
+
+      game.should_receive(:display)
+      game.should_receive(:turn)
+      game.should_receive(:game_over?).exactly(2).times
+
+      game.play
+    end
+  end
+
+end
+
+
+describe Player do
   describe "get_move" do
     it "gets two towers to make a move"
     it "prompts user again until input is correct"
   end
-
-  describe "play" do
-    it "should break when towers 1 and 2 are empty"
-    it "should make moves if towers 1 and 2 aren't empty"
-  end
-
-  describe "display" do
-    it "displays three towers"
-  end
 end
-
