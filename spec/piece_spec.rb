@@ -16,3 +16,5 @@ describe Piece do
     end
   end
 end
+
+#REV might be nice to have a flip method, to flip the color

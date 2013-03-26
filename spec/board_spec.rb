@@ -2,7 +2,7 @@ require 'rspec'
 require 'board'
 require 'piece'
 
-describe Board do
+describe Board do #REV looking good.
 
   describe "::make_start_grid" do
     it "returns an 8x8 grid" do

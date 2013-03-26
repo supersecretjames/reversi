@@ -2,11 +2,11 @@ require 'rspec'
 require 'w1d1'
 
 describe Array do
-  describe "my_uniq" do
+  describe "my_uniq" do #REV you might also like to check it doesn't modify original array for all of these
 
     it "returns an empty array if array is empty" do
       array = []
-      array.my_uniq.should be_empty
+      array.my_uniq.should be_empty #REV nice syntax here
     end
 
     it "returns a one-item array if array has one item" do
@@ -22,6 +22,8 @@ describe Array do
     it "removes duplicates from an array" do
       array = [1, 1, 2, 3, 4, "cat", "cat", "dog"]
       array.my_uniq.should == [1, 1, 2, 3, 4, "cat", "cat", "dog"].uniq
+      #REV this tests my_uniq and uniq at the same time. might be better to just
+      #hardcode an array to check against
     end
 
   end
@@ -31,6 +33,7 @@ describe Array do
     it "returns false if array is empty" do
       array = []
       two_sum?(array).should be_false
+      #REV you can use should be_two_sum
     end
 
     it "returns false if array contains one number" do
@@ -60,7 +63,7 @@ describe Array do
   end
 end
 
-describe Tower do
+describe Tower do #REV interesting that you have a tower class
   it "can be initialized with discs" do
     tower = Tower.new(3)
     tower.discs.should == [3,2,1]
@@ -73,7 +76,7 @@ describe Tower do
 
   describe "discs" do
     it "shows all discs in a tower" do
-      tower = Tower.new(4)
+      tower = Tower.new(4)  #REV this is really quite nice
       tower.discs.should == [4,3,2,1]
     end
   end
@@ -179,7 +182,7 @@ describe Hanoi do
       game.move(tower1, tower2)
     end
 
-    it "should ignore illegal moves" do
+    it "should ignore illegal moves" do #REV tests are very comprehensive. quite nice
 
       tower1.should_receive(:take_disc).and_return(1)
       tower2.should_receive(:valid_move?).and_return(false)
@@ -253,6 +256,7 @@ describe Hanoi do
 
 end
 
+#REV great tests overall
 
 describe Player do
   describe "get_move" do
