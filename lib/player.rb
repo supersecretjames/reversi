@@ -13,6 +13,7 @@ class Player
     puts "Not a valid move. Please enter a valid move."
     move = get_move(board)
   end
+  #REV: nice way to do the 'loop' to get valid input.
 
   def get_user_input
     puts "#{color.upcase} player, please enter your move (e.g. 'a2')"
@@ -42,6 +43,8 @@ class Player
     puts
     nil
   end
+  #REV: Not sure why this is in Player, and not Board? I'm not saying
+  # you're wrong, I guess, but I'd like to know your thoughts :) 
 
   def display_tile(piece, rank=0, file=0)
      background = (rank + file).odd? ? :green : :light_green
@@ -53,4 +56,5 @@ class Player
      end
      piece_display.colorize(:color => foreground, :background => background)
    end
+  #REV: Same comment
 end

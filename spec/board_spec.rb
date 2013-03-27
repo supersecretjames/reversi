@@ -26,6 +26,8 @@ describe Board do
       end
     end
   end
+  #REV: Nice, this is way more flexible for future tests; we just tested the
+  # four specific spots on the board. I think I like this way better.
 
   describe "#grid" do
     let(:grid) { Board.make_start_grid }

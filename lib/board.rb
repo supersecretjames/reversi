@@ -32,7 +32,9 @@ class Board
     i, j = position
     grid[i][j] = new_value
   end
-
+  #REV: Damn, I really wish I had thought of doing this. Glad I at
+  # least get to see it. :)
+  
   def on_board?(position)
     i, j = position
     (0...8).include?(i) && (0...8).include?(j)
@@ -91,6 +93,8 @@ class Board
         return nil
       elsif self[current_position].color == color && line.count > 1
         line << current_position
+        #REV: this is including the last piece. Do you need to include it?
+        # (see comments below, line 143)
         return line
       elsif self[current_position].color != color
         line << current_position
@@ -117,6 +121,9 @@ class Board
     return nil if lines.empty?
     lines
   end
+  #REV: Minor complaint - it would help if you had functions near
+  # their helper functions (if possible). Like have this up by 
+  # <valid_nil?> At least, it's my opinion. I may just be grumpy.
 
   private
 
@@ -133,4 +140,10 @@ class Board
       end
     end
   end
+  #REV: Could this be shorter/not nested, if your piece could flip itself?
+  # Also - not sure - but it seems like you are not necessarily flipping
+  # the color, but just reassigning it?
+  # But it works right, so maybe I just don't get it. Are you assigning
+  # the color to the last piece in the line (which is already that color)
+  # or skipping it in the above method?
 end
