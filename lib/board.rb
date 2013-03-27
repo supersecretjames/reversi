@@ -1,4 +1,4 @@
-require 'piece'
+require_relative 'piece.rb'
 
 class Board
   def self.make_start_grid

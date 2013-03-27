@@ -27,13 +27,6 @@ describe Board do
     end
   end
 
-  describe "#new" do
-    let(:grid) { Board.make_start_grid }
-    subject(:board) { Board.new }
-
-    it "defaults to start grid"
-  end
-
   describe "#grid" do
     let(:grid) { Board.make_start_grid }
     subject(:board) { Board.new(grid) }
@@ -95,8 +88,6 @@ describe Board do
     it "returns nil if origin is off board" do
       board.valid_lines(off_position, color).should be_nil
     end
-
-    it "calls #line_builder for each delta"
 
     it "returns all possible lines for example grid and origin" do
       board.valid_lines(empty_position, color).should == [[[2,3],[3,3],[4,3]]]
