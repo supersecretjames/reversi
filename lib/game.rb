@@ -3,7 +3,7 @@ require_relative 'player.rb'
 require 'colorize'
 
 class Game
-  def initialize(options = {})
+  def initialize(options = {})   #nice use of defaults
     defaults = {
       :board => Board.new,
       :players => { :white => Player.new(:white),
@@ -22,7 +22,7 @@ class Game
   end
 
   def winner
-    case @board.count_pieces(:black) <=> @board.count_pieces(:white)
+    case @board.count_pieces(:black) <=> @board.count_pieces(:white) #REV nice way to do this
       when 1 then :black
       when -1 then :white
       when 0 then nil

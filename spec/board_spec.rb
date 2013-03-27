@@ -5,7 +5,7 @@ require 'piece'
 describe Board do
 
   describe "::make_start_grid" do
-    subject(:grid) { Board.make_start_grid }
+    subject(:grid) { Board.make_start_grid } #REV nice test
     it "returns an 8x8 grid" do
       grid.count.should == 8
       grid.each do |row|
@@ -41,7 +41,8 @@ describe Board do
     end
   end
 
-  describe "#line_builder" do
+  #REV i feel like line builder is only used internally, so it's a bit weird to test it
+  describe "#line_builder" do  
     subject(:board) { Board.new }
     let(:origin) { [2,3] }
     let(:bad_origin) { [3,3] }
@@ -94,6 +95,7 @@ describe Board do
     end
   end
 
+  #REV might be nice to check that the colors are flipped after a certain piece is placed
   describe "#place_piece" do
     subject(:board) { Board.new }
     let(:empty_position) { [2,3] }

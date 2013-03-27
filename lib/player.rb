@@ -1,12 +1,12 @@
 require_relative 'board.rb'
 
-class Player
+class Player  #REV it's nice you have a player. but i feel like you may not need this.
   attr_reader :color
   def initialize(color)
     @color = color
   end
 
-  def get_move(board)
+  def get_move(board) 
     display(board)
     move = get_user_input
     return move if board.valid_move?(move, color)
@@ -17,7 +17,7 @@ class Player
   def get_user_input
     puts "#{color.upcase} player, please enter your move (e.g. 'a2')"
     input = gets.chomp
-    i = "87654321".index(input[-1])
+    i = "87654321".index(input[-1])   #REV nice
     j = "abcdefgh".index(input[0])
     [i,j]
   end

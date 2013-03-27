@@ -30,6 +30,8 @@ describe Game do
     let(:no_moves_player) { Player.new(:black) }
     let (:players) { {:white => has_moves_player, :black => no_moves_player} }
 
+    #REV this is pretty good. i feel like there are perhaps more that could be tested in the play loop
+    #for example, the players should receive calls in order. board should receive calls to valid_moves? etc
     it "skips player if player has no valid move" do
       game = Game.new(:board => board, :players => players)
       no_moves_player.should_not_receive(:get_move)
@@ -39,3 +41,5 @@ describe Game do
     end
   end
 end
+
+#REV overall quite nice. i like how your test codes are very clean.

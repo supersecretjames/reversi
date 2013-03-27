@@ -8,7 +8,7 @@ describe Piece do
     piece.color.should == :black
   end
 
-  describe "#color=" do
+  describe "#color=" do   #REV i still feel it's profitable to have a flip method. oh well
     it "sets the color of a piece" do
       piece = Piece.new(:black)
       piece.color = :white

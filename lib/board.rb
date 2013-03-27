@@ -29,18 +29,21 @@ class Board
   end
 
   def []=(position, new_value)
-    i, j = position
+    i, j = position   #REV this makes the code very clean
     grid[i][j] = new_value
   end
 
   def on_board?(position)
     i, j = position
     (0...8).include?(i) && (0...8).include?(j)
+    #REV you could of done position.all? { |pos| (0...8).include?(pos) }
+    #this seems like a bit of code dup
   end
 
   def valid_move?(position, color)
     return true if valid_lines(position, color)
     false
+    #REV this could of just been valid_lines(position, color)
   end
 
   def valid_moves?(color)
@@ -104,7 +107,7 @@ class Board
     return nil unless on_board?(origin)
     return nil unless self[origin].nil?
 
-    dir_deltas = [0, 1, -1].product([0, 1, -1])
+    dir_deltas = [0, 1, -1].product([0, 1, -1]) #REV amazing solution! +1
     dir_deltas.delete([0, 0])
 
     lines = []

@@ -1,7 +1,7 @@
 require 'rspec'
 require 'w1d1'
 
-describe Array do
+describe Array do #REV assuming nothing changed here. great job again
   describe "my_uniq" do
 
     it "returns an empty array if array is empty" do
